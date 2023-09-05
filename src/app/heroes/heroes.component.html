@@ -1,21 +1,24 @@
-<h2>My Heroes</h2>
-<ul class="heroes">
-  <li *ngFor="let hero of heroes">
-    <a routerLink="/detail/{{hero.id}}">
-      <span class="badge">{{hero.id}}</span> {{hero.name}}
-    </a>
-    <button type="button" class="delete" title="delete hero"
-      (click)="delete(hero)">x</button>
-  </li>
-</ul>
-<div>
-  <label for="new-hero">Hero name: </label>
-  <input id="new-hero" #heroName />
-
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button type="button" class="add-button" (click)="add(heroName.value); heroName.value=''">
-    Add hero
-  </button>
+<h2 class="mt-5">My Heroes</h2>
+<div class="w-50 mx-auto">
+  <input #searchBox type="text" id="typehead-http" class="w-100 form-control " placeholder="Type name in here"
+  (input)="search(searchBox.value)" 
+  />
+  <table class="table table-striped w-100">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let hero of heros$ | async">
+        <td [width]="200"><a routerLink="/detail/{{hero._id}}">{{hero._id}}</a></td>
+        <td>{{hero.name | titlecase}}</td>
+        <td>{{hero.age}}</td>
+        <td> <button type="button" class="btn btn-danger" title="delete hero" (click)="delete(hero)">x</button></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-
-<!-- <app-hero-detail [hero]="selectedHero"></app-hero-detail> -->

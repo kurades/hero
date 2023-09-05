@@ -27,7 +27,7 @@ const connectDB = (url) => {
 app.get('/', (req, res) => {
     res.send('hello world');
 })
-app.use('/api/hero', heroRoute)
+app.use('/api/heroes-manager', heroRoute)
 const start = async () => {
     try {
         await connectDB(process.env.MONGOURL)
