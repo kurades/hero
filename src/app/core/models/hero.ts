@@ -5,4 +5,5 @@ export interface Hero {
     email: string;
     age: number;
     address: string;
+    tags?: Array<string>;
 }

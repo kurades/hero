@@ -6,10 +6,8 @@ module.exports = (request, response, next) =>{
     const authHeader = request.header('Authorization')
     let token = '';
     if (authHeader.startsWith("Bearer ")){
-        token = authHeader.substring(8, authHeader.length-1);
-        console.log(token);
+        token = authHeader.substring(7, authHeader.length);
    }
-    console.log(request.header('Authorization'));
     if(!token) return response.status(401).send('Token required')
 
     try{

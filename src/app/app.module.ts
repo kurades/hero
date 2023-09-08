@@ -12,6 +12,7 @@ import { HeroCreateComponent } from './hero-create/hero-create.component';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { ShareModule } from './shared/share.module';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +21,7 @@ import { ShareModule } from './shared/share.module';
     MessagesComponent,
     DashboardComponent,
     HeroCreateComponent,
+    UserProfileComponent,
   ],
   imports: [
     CoreModule,

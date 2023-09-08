@@ -5,7 +5,7 @@ import { Hero } from "src/app/core/models/hero";
 export interface HeroState {
     heroes: Hero[],
     error: string,
-    status: 'pending' | 'success',
+    status: 'idle' | 'pending' | 'success' | 'error',
 }
 
 

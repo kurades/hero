@@ -29,3 +29,16 @@ export const registerFailure = createAction(
     props<{ error: string }>()
 )
 
+export const updateProfile = createAction(
+    '[profile page] profile',
+    props<{ user: User }>()
+)
+
+export const profileSuccess = createAction(
+    '[profile page] updateprofile success',
+    props<{ user: User }>()
+)
+export const profileFailure = createAction(
+    '[profile page] update profile failure',
+    props<{ error: string }>()
+)

@@ -12,7 +12,10 @@
             <a routerLink="/create" class="nav-item nav-link">Create</a>
         </li>
         <li class="nav-item">
-            <a (click)="logout()" class="nav-item nav-link">Log out</a>
+            <a routerLink="/profile" class="nav-item nav-link">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a (click)="logout()" class="nav-item nav-link cursor-pointer">Log out</a>
         </li>
     </ul>
     <ul *ngIf="!(user$ | async)" class="navbar-nav ml-auto d-flex flex-row">
@@ -24,5 +27,7 @@
         </li>
     </ul>
 </nav>
-<router-outlet></router-outlet>
-<app-messages></app-messages>
+<!-- <div class="d-flex"> -->
+    <router-outlet></router-outlet>
+    <app-messages ></app-messages>
+<!-- </div> -->

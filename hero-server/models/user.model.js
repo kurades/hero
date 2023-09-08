@@ -8,12 +8,6 @@ const UserSchema = new Schema({
         unique: true,
         trim: true,
     },
-    phone: {
-        type: String,
-    },
-    email: {
-      type: String,  
-    },
     password: {
         type: String,
         require: true,

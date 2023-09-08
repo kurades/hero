@@ -7,6 +7,7 @@ import { HeroCreateComponent } from './hero-create/hero-create.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AuthGuardService } from './core/services/auth-guard.service';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: 'heroes', component: HeroesComponent, canActivate: [() => inject(AuthGuardService).canActivate()] },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full', },
   { path: 'detail/:id', component: HeroDetailComponent, canActivate: [() => inject(AuthGuardService).canActivate()] },
   { path: 'create', component: HeroCreateComponent, canActivate: [() => inject(AuthGuardService).canActivate()] },
+  { path: 'profile', component: UserProfileComponent, canActivate: [() => inject(AuthGuardService).canActivate()] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent }
 ];

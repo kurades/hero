@@ -5,7 +5,7 @@ import * as UserAction from './user.actions'
 import { catchError, exhaustMap, map, of, switchMap, tap } from 'rxjs'
 import { MessageService } from "src/app/core/services/message.service";
 import { CookieService } from "ngx-cookie-service";
-import {Router } from "@angular/router";
+import { Router } from "@angular/router";
 
 
 @Injectable()
@@ -38,17 +38,41 @@ export class UserEffect {
             exhaustMap(action =>
                 this.authService.login(action.name, action.password).pipe(
                     map((data) => {
-                        
-                        this.cookieService.set('user', JSON.stringify(data.user))
-                        this.cookieService.set('token', JSON.stringify(data.token))
-                        this.router.navigateByUrl('/')
-                        return UserAction.loginSuccess({ user: data.user, token: data.token })
+                        if (data) {
+                            this.cookieService.set('user', JSON.stringify(data.user))
+                            this.cookieService.set('token', JSON.stringify(data.token))
+                            this.router.navigateByUrl('/')
+                            return UserAction.loginSuccess({ user: data.user, token: data.token })
+                        }
+                        throw Error('Login error in userEffect')
                     }),
                     catchError((error) => {
                         this.messageService.add(error)
                         return of(UserAction.loginFailure({ error }))
                     })
                 )
+            )
+        )
+    )
+
+    updateProfile$ = createEffect(() =>
+        this.action$.pipe(
+            ofType(UserAction.updateProfile),
+            exhaustMap((action) => {
+
+                console.log('effect',action.user);
+                
+                return this.authService.updateProfile(action.user).pipe(
+                    map((data) => {
+                        this.cookieService.set('user', JSON.stringify(data))
+                        return UserAction.profileSuccess({ user: data })
+                    }),
+                    catchError((error) => {
+                        this.messageService.add(error)
+                        return of(UserAction.loginFailure({ error }))
+                    })
+                )
+            }
             )
         )
     )

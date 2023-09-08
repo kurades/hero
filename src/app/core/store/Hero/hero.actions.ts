@@ -26,6 +26,21 @@ export const getHeroesSuccess = createAction(
 )
 
 export const getHeroesFailure = createAction(
+    '[Hero page] Get Heroes Failure',
+    props<{ error: string }>()
+)
+
+export const getHero = createAction(
+    '[Hero page] Get Hero',
+    props<{ id: string }>()
+)
+
+export const getHeroSuccess = createAction(
+    '[Hero page] Get Hero Success',
+    props<{ hero: Hero }>()
+)
+
+export const getHeroFailure = createAction(
     '[Hero page] Get Hero Failure',
     props<{ error: string }>()
 )
@@ -36,17 +51,17 @@ export const getTopHeroes = createAction(
 
 export const getTopHeroesSuccess = createAction(
     '[Hero page] Get Top Heroes Success',
-    props<{heroes: Hero[]}>
+    props<{ heroes: Hero[] }>
 )
 
 export const getTopHeroesFailure = createAction(
     '[Hero page] Get Top Heroes Failure',
-    props<{error: string}>
+    props<{ error: string }>
 )
 
 export const findHero = createAction(
     'Hero page Find Hero',
-    props<{ term: string }>()
+    props<{ term: string, tags: string[] }>()
 )
 
 export const findHeroSuccess = createAction(
@@ -70,6 +85,21 @@ export const deleteHeroSuccess = createAction(
 )
 
 export const deleteHeroFailure = createAction(
-    '[Hero page] Delete  Hero failure',
+    '[Hero page] Delete Hero failure',
+    props<{ error: string }>()
+)
+
+export const editHero = createAction(
+    '[Hero page] Edit Hero',
+    props<{ hero: Hero }>()
+)
+
+export const editHeroSuccess = createAction(
+    '[Hero page] Edit Hero Success',
+    props<{ hero: Hero }>()
+)
+
+export const editHeroFailure = createAction(
+    '[Hero page] Edit Hero Failure',
     props<{ error: string }>()
 )

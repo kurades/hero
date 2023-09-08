@@ -1,23 +1,38 @@
 <h2 class="mt-5">My Heroes</h2>
 <div class="w-50 mx-auto">
-  <input #searchBox type="text" id="typehead-http" class="w-100 form-control " placeholder="Type name in here"
-  (input)="search(searchBox.value)" 
-  />
+  <div class="d-flex w-75 flex-wrap mb-2 ">
+    <div *ngFor="let tag of tagsTerm" class="me-2 hover-overlay cursor-pointer position-relative">
+      <div class="overlay" (click)="removeTagTerm(tag)"></div>
+      <span class="badge bg-success ">{{tag | titlecase}}</span>
+    </div>
+  </div>
+  <div class="d-flex">
+    <input  type="text" class="form-control me-2" placeholder="Type name in here"
+      (keydown.enter)="search($event)" />
+    <input type="text" class="w-25 form-control " placeholder="Type tags in here" (keydown.enter)="addTag($event)" />
+  </div>
   <table class="table table-striped w-100">
     <thead>
       <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Name</th>
-        <th scope="col">Age</th>
-        <th scope="col">Action</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Tags</th>
+        <th>Age</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let hero of heros$ | async">
-        <td [width]="200"><a routerLink="/detail/{{hero._id}}">{{hero._id}}</a></td>
-        <td>{{hero.name | titlecase}}</td>
+        <td [width]="100"><a routerLink="/detail/{{hero._id}}">{{hero._id}}</a></td>
+        <td [width]="200">{{hero.name | titlecase}}</td>
+        <td [width]="300">
+          <span *ngFor="let tag of hero.tags" class="badge bg-success me-1">
+            {{tag}}
+          </span>
+        </td>
         <td>{{hero.age}}</td>
-        <td> <button type="button" class="btn btn-danger" title="delete hero" (click)="delete(hero)">x</button></td>
+        <td [width]="50"> <button type="button" class="btn btn-danger" title="delete hero"
+            (click)="delete(hero)">x</button></td>
       </tr>
     </tbody>
   </table>

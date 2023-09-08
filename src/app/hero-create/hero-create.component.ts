@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HeroService } from '../core/services/hero.service';
 import { Hero } from '../core/models/hero';
 import { TitleCasePipe } from '@angular/common';
@@ -14,7 +14,7 @@ import { addHero } from '../core/store/Hero/hero.actions';
 export class HeroCreateComponent implements OnInit {
   heroFormGroup: FormGroup;
   private MINAGE: number = 1;
-
+  inputTag : FormControl;
   constructor(private fb: FormBuilder, private heroService: HeroService, private store: Store<{ heroes: HeroState }>) { }
 
   get name() {
@@ -33,8 +33,13 @@ export class HeroCreateComponent implements OnInit {
     return this.heroFormGroup.controls['address'];
   }
 
+  get tags() {
+    return this.heroFormGroup.controls['tags'] as FormArray;
+  }
+
 
   ngOnInit(): void {
+    this.inputTag = new FormControl('')
     this.initForm()
     this.heroFormGroup.markAsPristine()
   }
@@ -46,9 +51,27 @@ export class HeroCreateComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       age: [, [Validators.required, Validators.min(this.MINAGE)]],
       address: ['', Validators.required],
+      tags: this.fb.array([])
     })
   }
 
+  addTag() {
+    const tag = this.inputTag.value
+    const tags: Array<string> = this.tags.value
+    const exist = tags.find((t) => t === tag)
+    if (!exist && tag) {
+      this.tags.push(this.fb.control(tag));
+      console.log(this.tags.value);
+    }
+    this.inputTag.setValue('');
+  }
+
+  removeTag(tag: string): void {
+    let current = [...this.tags.value]
+    let index = current.findIndex((v) => v === tag)
+    this.tags.removeAt(index)
+    console.log(this.tags.value);
+  }
 
   onSubmit(): void {
     console.log(this.heroFormGroup.value);

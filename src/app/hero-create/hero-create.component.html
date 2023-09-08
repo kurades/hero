@@ -28,6 +28,17 @@
         <div *ngIf="address.errors && address.touched" class="text-danger">
             Please type in a address.
         </div>
+        <div formArrayName="tags">
+            <label>Tags</label>
+            <div class="d-flex w-75 flex-wrap mb-2">
+                <div *ngFor="let tag of tags.controls"  class="me-2 hover-overlay cursor-pointer position-relative" >
+                    <div class="overlay" (click)="removeTag(tag.value)"></div>
+                    <span class="badge bg-success ">{{tag.value | titlecase}}</span>
+                </div>
+            </div>
+            <input type="text" class="mb-2 form-control" [formControl]="inputTag">
+            <button type="button" (click)="addTag()" class="btn btn-secondary">Add tag</button>
+        </div>
         <Button type="submit" class="btn btn-primary w-100 mt-5" [disabled]="!heroFormGroup.valid">Submit</Button>
     </form>
 </div>

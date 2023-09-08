@@ -2,11 +2,14 @@ const { Schema } = require('mongoose');
 const mongoose = require('mongoose');
 
 const HeroSchema = new Schema({
+    uid: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Hero'
+    },
     name: {
         type: String,
         required: true,
         trim: true,
-        unique: true,
     },
     gender: {
         type: String,
@@ -23,7 +26,12 @@ const HeroSchema = new Schema({
     address: {
         type: String,
         trim: true,
-    }
+    },
+    tags: [{
+        type: String,
+        trim: true,
+        ref: 'Tag',
+    }]
 })
 
 const HeroModel = mongoose.model('Hero', HeroSchema)

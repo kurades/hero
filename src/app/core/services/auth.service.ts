@@ -16,12 +16,12 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     const token = this.cookieService.get('token')
-
+    if (!token) return false
     return !this.jwtHelper.isTokenExpired(token);
   }
 
   log(message: string) {
-    this.messageService.add(message);
+    this.messageService.add(`AuthService:${message}`);
   }
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -34,10 +34,11 @@ export class AuthService {
     }
   }
   login(name: string, password: string): Observable<authPayload> {
+
     return this.http.post<authPayload>(`${this.authUrl}/login`, { name, password })
       .pipe(
-        tap(_ => { console.log('login success') }),
-        catchError(this.handleError<authPayload>('login', {} as authPayload))
+        tap(_ => { this.log('login success') }),
+        catchError(this.handleError<authPayload>('login'))
       )
   }
   register(name: string, password: string, rePassword: string): Observable<authPayload> {
@@ -48,6 +49,13 @@ export class AuthService {
       })
     }
     return this.http.post<authPayload>(`${this.authUrl}/register`, { name, password }, this.httpOptions)
+  }
+
+  updateProfile(user: User): Observable<User> {
+    return this.http.put<User>(`${this.authUrl}`, user, this.httpOptions).pipe(
+      tap(_ => { this.log('update profile user') }),
+      catchError(this.handleError<User>('update profile'))
+    )
   }
 
   loadAuthFromCookie() {

@@ -13,12 +13,11 @@ import { UserReducer } from './store/User/user.reducer';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { AuthGuardService } from './services/auth-guard.service';
 
-// export function tokenGetter() {
-//   return localStorage.getItem("access_token");
-// }
 
 export function tokenGetter(){
-  return inject(CookieService).get('token')
+  let token = inject(CookieService).get('token')
+  if(!token) return ''
+  return JSON.parse(token)
 }
 
 @NgModule({
