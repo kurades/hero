@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HeroService } from '../core/services/hero.service';
-import { Hero } from '../core/models/hero';
+import { HeroService } from '../../core/services/hero.service';
+import { Hero } from '../../core/models/hero';
 import { TitleCasePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { HeroState } from '../core/store/Hero/hero.selector';
-import { addHero } from '../core/store/Hero/hero.actions';
+import { HeroState } from '../../core/store/Hero/hero.selector';
+import { addHero } from '../../core/store/Hero/hero.actions';
 @Component({
   selector: 'app-hero-create',
   templateUrl: './hero-create.component.html',

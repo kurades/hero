@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserState, selectUser } from '../core/store/User/user.selector';
+import { UserState, selectUser } from '../../core/store/User/user.selector';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../core/models/user';
-import { updateProfile } from '../core/store/User/user.actions';
+import { User } from '../../core/models/user';
+import { updateProfile } from '../../core/store/User/user.actions';
 
 @Component({
   selector: 'app-user-profile',

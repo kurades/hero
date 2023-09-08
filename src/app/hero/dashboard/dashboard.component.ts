@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Hero } from '../core/models/hero';
-import { HeroService } from '../core/services/hero.service';
+import { Hero } from '../../core/models/hero';
+import { HeroService } from '../../core/services/hero.service';
 import { Store } from '@ngrx/store';
-import { HeroState, selectHeros } from '../core/store/Hero/hero.selector';
-import { getTopHeroes } from '../core/store/Hero/hero.actions';
+import { HeroState, selectHeros } from '../../core/store/Hero/hero.selector';
+import { getTopHeroes } from '../../core/store/Hero/hero.actions';
 import { Observable } from 'rxjs';
 
 @Component({

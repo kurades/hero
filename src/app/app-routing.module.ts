@@ -1,13 +1,13 @@
 import { NgModule, inject } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HeroesComponent } from './heroes/heroes.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { HeroDetailComponent } from './hero-detail/hero-detail.component';
-import { HeroCreateComponent } from './hero-create/hero-create.component';
+import { HeroesComponent } from './hero/heroes/heroes.component';
+import { DashboardComponent } from './hero/dashboard/dashboard.component';
+import { HeroDetailComponent } from './hero/hero-detail/hero-detail.component';
+import { HeroCreateComponent } from './hero/hero-create/hero-create.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AuthGuardService } from './core/services/auth-guard.service';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserProfileComponent } from './auth/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: 'heroes', component: HeroesComponent, canActivate: [() => inject(AuthGuardService).canActivate()] },

@@ -1,7 +1,7 @@
-<div class="card p-2 mt-2" style="width: 500px;">
+<div class="card p-2 mt-2" style="width: 400px;">
     <h2>Messages</h2>
     <div *ngIf="messageService.messages.length">
-        <button type="button" class="btn border-danger mb-2" (click)="messageService.clear()">
+        <button type="button" class="btn btn-outline-danger mb-2" (click)="messageService.clear()">
             Clear messages
         </button>
         <div *ngFor="let message of messageService.messages">{{message}}</div>

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Hero } from '../core/models/hero';
+import { Hero } from '../../core/models/hero';
 import { Observable, Subject, debounceTime, distinctUntilChanged, map, of, tap } from 'rxjs';
 import { FormArray, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { deleteHero, findHero, getHeroes } from '../core/store/Hero/hero.actions';
-import { HeroState, selectHeros } from '../core/store/Hero/hero.selector';
-import { UserState, selectUser } from '../core/store/User/user.selector';
+import { deleteHero, findHero, getHeroes } from '../../core/store/Hero/hero.actions';
+import { HeroState, selectHeros } from '../../core/store/Hero/hero.selector';
+import { UserState, selectUser } from '../../core/store/User/user.selector';
 
 @Component({
   selector: 'app-heroes',

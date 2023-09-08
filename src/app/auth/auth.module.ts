@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ShareModule } from '../shared/share.module';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserProfileComponent
   ],
   imports: [
     ShareModule
@@ -17,6 +19,7 @@ import { ShareModule } from '../shared/share.module';
   exports: [
     LoginComponent,
     RegisterComponent,
+    UserProfileComponent
   ]
 })
 export class AuthModule { }

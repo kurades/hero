@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Hero } from '../core/models/hero';
+import { Hero } from '../../core/models/hero';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { HeroService } from '../core/services/hero.service';
+import { HeroService } from '../../core/services/hero.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, pipe, take, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { HeroState, selectHeroState, selectHeros } from '../core/store/Hero/hero.selector';
-import { editHero, getHero } from '../core/store/Hero/hero.actions';
+import { HeroState, selectHeroState, selectHeros } from '../../core/store/Hero/hero.selector';
+import { editHero, getHero } from '../../core/store/Hero/hero.actions';
 @Component({
   selector: 'app-hero-detail',
   templateUrl: './hero-detail.component.html',
