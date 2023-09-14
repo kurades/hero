@@ -64,6 +64,7 @@ export class UserEffect {
                 
                 return this.authService.updateProfile(action.user).pipe(
                     map((data) => {
+                        console.log(data);
                         this.cookieService.set('user', JSON.stringify(data))
                         return UserAction.profileSuccess({ user: data })
                     }),

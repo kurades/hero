@@ -68,118 +68,7 @@ async function getUser(req, res) {
     return res.status(200).send(user)
 }
 
-async function getHeroesByUserId(req, res) {
-    try {
-        const userId = req.user._id;
-        const { limit } = req.query;
-        const user = await UserModel.findById(userId).populate('heroesList');
-        if (!user) return res.status(403).send('user not valid')
-        return res.json(user.heroesList.slice(0, limit | user.heroesList.length))
-    } catch (error) {
-        console.log(error);
-    }
-}
 
-async function addHeroByUserId(req, res) {
-    const HERO_SERVER = process.env.HERO_SERVER;
-    try {
-        const heroBody = req.body;
-        const userId = req.user._id
-        heroBody.uid = userId;
-
-        const user = await UserModel.findById(userId).populate('heroesList');
-        if (!user) return res.status(403).send('user not valid')
-        const checkHeroExist = user.heroesList.find((h)=>h.name === heroBody.name)
-        if(checkHeroExist) return res.status(422).send('Hero exist in this user')
-
-        const { data: newHero } = await axios.post(`${HERO_SERVER}`, heroBody)
-        user.heroesList.push(newHero._id)
-        const newUser = await user.save()
-
-        res.json(newUser)
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Server error');
-    }
-}
-
-async function getHeroByUserId(req, res) {
-    try {
-        const userId = req.user._id
-        const id = req.params.id
-        const user = await UserModel.findById(userId).populate('heroesList')
-        if (!user) return res.status(403).send('user not valid')
-        const hero = user.heroesList.find((h) => h._id.toString() === id)
-        if (!hero) return res.status(404).send('Hero not found')
-        res.json(hero)
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Server error');
-    }
-}
-
-async function editHeroByUserId(req, res) {
-    const HERO_SERVER = process.env.HERO_SERVER;
-    try {
-        const id = req.params.id
-        const body = req.body;
-        console.log(body);
-        const userId = req.user._id
-        const user = await UserModel.findById(userId);
-        if (!user) return res.status(403).send('user not valid')
-        const foundHero = user.heroesList.find((h) => h.toString() === id);
-        if (!foundHero) return res.status(400).send('Hero not found in user list')
-        const newHero = await axios.put(`${HERO_SERVER}/${foundHero}`, body)
-        // console.log(newHero.data);
-        res.json(newHero.data)
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Server error');
-    }
-}
-
-async function findHero(req, res) {
-    const HERO_SERVER = process.env.HERO_SERVER;
-    const id = req.user._id;
-    try {
-        let { name, tagname } = req.query;
-
-        let query = '?'
-        query += `uid=${id}`
-        if (name) query += `&name=${name}`
-        if (tagname) query += `&tagname=${tagname}`
-
-        const { data } = await axios.get(`${HERO_SERVER}${query}`)
-        console.log(data);
-        // const heroes = data.filter((h) => h.uid === id)
-        // console.log(heroes);
-        return res.json(data);
-
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-async function deleteHeroByUserId(req, res) {
-    const HERO_SERVER = process.env.HERO_SERVER;
-    try {
-        const id = req.params.id
-        const userId = req.user._id
-        const user = await UserModel.findById(userId);
-        if (!user) return res.status(403).send('user not valid')
-        const foundHero = user.heroesList.find((h) => h.toString() === id);
-        if (!foundHero) return res.status(400).send('Hero not found in user list')
-        await UserModel.findOneAndUpdate(
-            { _id: userId },
-            { $pull: { heroesList: { $in: id } } },
-            { new: true })
-        const { data } = await axios.delete(`${HERO_SERVER}/${id}`)
-        res.json(data)
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Server error');
-    }
-}
 
 async function updateProfile(req, res) {
     try {
@@ -198,4 +87,4 @@ async function updateProfile(req, res) {
 }
 
 
-module.exports = { register, getUser, login, addHeroByUserId, getHeroByUserId, editHeroByUserId, getHeroesByUserId, deleteHeroByUserId, findHero, updateProfile }
+module.exports = { register, getUser, login, updateProfile }

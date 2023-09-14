@@ -3,16 +3,16 @@
         <h1 class="navbar-brand text-white">{{title}}</h1>
         <ul *ngIf="user$ | async" class="navbar-nav ml-auto d-flex flex-row">
             <li class="nav-item">
-                <a routerLink="/dashboard" class="nav-link text-white">Dashboard</a>
-            </li>
-            <!-- <li class="nav-item">
-                <a routerLink="/heroes" class="nav-item nav-link text-white">Heroes</a>
-            </li> -->
-            <li class="nav-item">
-                <a routerLink="/create" class="nav-item nav-link text-white">Create</a>
+                <a routerLink="/heroes/dashboard" class="nav-link text-white">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a routerLink="/profile" class="nav-item nav-link text-white">Profile</a>
+                <a routerLink="/tag" class="nav-item nav-link text-white">Tag</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/heroes/create" class="nav-item nav-link text-white">Create</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/auth/profile" class="nav-item nav-link text-white">Profile</a>
             </li>
             <li class="nav-item">
                 <a (click)="logout()" class="nav-item nav-link text-white cursor-pointer">Log out</a>
@@ -20,10 +20,10 @@
         </ul>
         <ul *ngIf="!(user$ | async)" class="navbar-nav ml-auto d-flex flex-row">
             <li class="nav-item">
-                <a routerLink="/login" class="nav-item nav-link text-white">Login</a>
+                <a routerLink="/auth/login" class="nav-item nav-link text-white">Login</a>
             </li>
             <li class="nav-item">
-                <a routerLink="/register" class="nav-item nav-link text-white">Register</a>
+                <a routerLink="/auth/register" class="nav-item nav-link text-white">Register</a>
             </li>
         </ul>
     </nav>

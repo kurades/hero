@@ -1,3 +1,10 @@
+# do
+ - [x] shorten tag name
+ - [x] validator tag name symbol
+ - [ ] lazyload module
+ - [x] crud tag
+ - [x] custom directive
+ 
 # TourOfHero
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.

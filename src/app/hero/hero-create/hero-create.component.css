@@ -12,3 +12,4 @@
     transition: .2s;
     background-color: rgba(255, 255, 255, .3);
 }
+::ng-deep .dropdown-menu { width: 300px; }

@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { Hero } from "src/app/core/models/hero";
+import { Tag } from "../../models/tag";
 
 
 export const addHero = createAction(
@@ -61,7 +62,7 @@ export const getTopHeroesFailure = createAction(
 
 export const findHero = createAction(
     'Hero page Find Hero',
-    props<{ term: string, tags: string[] }>()
+    props<{ term: string, tags: Tag[] }>()
 )
 
 export const findHeroSuccess = createAction(
@@ -101,5 +102,63 @@ export const editHeroSuccess = createAction(
 
 export const editHeroFailure = createAction(
     '[Hero page] Edit Hero Failure',
+    props<{ error: string }>()
+)
+export const getTags = createAction(
+    '[Tag] get tags',
+)
+
+export const getTagsSuccess = createAction(
+    '[Tag] get tags Success',
+    props<{ tags: Tag[] }>()
+)
+
+export const getTagsFailure = createAction(
+    '[Tag] get tags Failure',
+    props<{ error: string }>()
+)
+
+export const addTag = createAction(
+    '[Tag] add tag',
+    props<{ name: string }>()
+)
+
+export const addTagSuccess = createAction(
+    '[Tag] add tag Success',
+    props<{ tag: Tag }>()
+)
+
+export const addTagFailure = createAction(
+    '[Tag] add tag Failure',
+    props<{ error: string }>()
+)
+
+export const editTag = createAction(
+    '[Tag] edit tag',
+    props<{ _id: string, name: string }>()
+)
+
+export const editTagSuccess = createAction(
+    '[Tag] edit tag Success',
+    props<{ tag: Tag }>()
+)
+
+export const editTagFailure = createAction(
+    '[Tag] edit tag Failure',
+    props<{ error: string }>()
+)
+
+export const deleteTag = createAction(
+    '[Tag] delete tag',
+    props<{ _id: string }>()
+)
+
+export const deleteTagSuccess = createAction(
+    '[Tag] delete tag Success',
+    props<{ tag: Tag }>()
+)
+
+export const deleteTagFailure = createAction(
+    '[Tag] delete tag Failure',
     props<{ error: string }>()
 )

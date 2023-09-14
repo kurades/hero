@@ -25,8 +25,9 @@ export class DashboardComponent implements OnInit {
   }
 
   getTopHeroes(): void {
-    this.heroes$.subscribe((heroes)=>{
+    let subcription = this.heroes$.subscribe((heroes)=>{
       this.heroes = heroes.slice(0,5)
     })
+    
   }
 }

@@ -4,6 +4,10 @@ import { HeroCreateComponent } from './hero-create/hero-create.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { ShareModule } from '../shared/share.module';
+import { TagComponent } from './tag/tag.component';
+import { CopyDirective } from '../shared/directive/copy.directive';
+import { HeroesRoutingModule } from './hero-routing.module';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -12,16 +16,20 @@ import { ShareModule } from '../shared/share.module';
     DashboardComponent,
     HeroCreateComponent,
     HeroDetailComponent,
-    HeroesComponent
+    HeroesComponent,
+    TagComponent,
+
   ],
   imports: [
-    ShareModule
+    ShareModule,
+    HeroesRoutingModule
   ],
   exports: [
     DashboardComponent,
     HeroCreateComponent,
     HeroDetailComponent,
-    HeroesComponent
+    HeroesComponent,
+    TagComponent
   ]
 })
 export class HeroModule { }

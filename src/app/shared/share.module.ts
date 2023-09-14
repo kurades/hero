@@ -4,30 +4,34 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AppRoutingModule } from '../app-routing.module';
+import { ShortenPipe } from './pipe/shorten.pipe';
+import { CopyDirective } from './directive/copy.directive';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ShortenPipe,
+    CopyDirective
+  ],
   imports: [
     CommonModule,
-    BrowserModule,
-    AppRoutingModule,
+
     FormsModule,
-    HttpClientModule,
+
     ReactiveFormsModule,
     NgbModule,
   ],
-  providers: [TitleCasePipe],
+  providers: [TitleCasePipe, CopyDirective],
   exports: [
     CommonModule,
-    BrowserModule,
-    AppRoutingModule,
+
     FormsModule,
-    HttpClientModule,
+    
     ReactiveFormsModule,
     NgbModule,
+    ShortenPipe,
+    CopyDirective
   ]
 })
 export class ShareModule { }

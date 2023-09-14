@@ -8,16 +8,20 @@ import { CoreModule } from './core/core.module';
 import { ShareModule } from './shared/share.module';
 import { HeroModule } from './hero/hero.module';
 import { AuthModule } from './auth/auth.module';
+import { TagManagerComponent } from './tag-manager/tag-manager.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
     MessagesComponent,
+    TagManagerComponent,
   ],
   imports: [
-    CoreModule,
+    BrowserModule,
+    HttpClientModule,
     ShareModule,
-    HeroModule,
-    AuthModule,
+    CoreModule,
+    AppRoutingModule,
   ],
   bootstrap: [AppComponent]
 })

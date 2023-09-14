@@ -1,3 +1,5 @@
+import { Tag } from "./tag";
+
 export interface Hero {
     _id?: string;
     name: string;
@@ -5,5 +7,5 @@ export interface Hero {
     email: string;
     age: number;
     address: string;
-    tags?: Array<string>;
+    tags?: Array<Tag>;
 }

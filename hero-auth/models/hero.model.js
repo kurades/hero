@@ -24,10 +24,8 @@ const HeroSchema = new Schema({
         trim: true,
     },
     tags: [{
-        type: String,
-        trim: true,
+        type: mongoose.Types.ObjectId,
         ref: 'Tag',
-        
     }]
 })
 

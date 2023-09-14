@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     const value : Login = this.loginForm.value;
+    
     this.store.dispatch(login(value))
   }
 }

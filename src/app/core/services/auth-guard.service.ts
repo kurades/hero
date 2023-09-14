@@ -13,7 +13,7 @@ export class AuthGuardService {
     let payload = this.auth.loadAuthFromCookie()
     if (payload) this.store.dispatch(loginSuccess(payload))
     if (!this.auth.isAuthenticated()) {
-      this.router.navigate(['login']);
+      this.router.navigate(['/auth/login']);
       return false;
     }
     return true;

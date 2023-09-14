@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store'
-import { addHero, addHeroFailure, addHeroSuccess, deleteHeroSuccess, editHeroFailure, editHeroSuccess, findHero, findHeroSuccess, getHeroesFailure, getHeroesSuccess, getTopHeroesSuccess } from './hero.actions'
+import { addHero, addHeroFailure, addHeroSuccess, addTagFailure, addTagSuccess, deleteHeroSuccess, deleteTagFailure, deleteTagSuccess, editHeroFailure, editHeroSuccess, editTagFailure, editTagSuccess, findHero, findHeroSuccess, getHeroesFailure, getHeroesSuccess, getTagsFailure, getTagsSuccess, getTopHeroesSuccess } from './hero.actions'
 import { HeroState } from './hero.selector'
 
 
@@ -9,6 +9,7 @@ import { HeroState } from './hero.selector'
 export const initialState: HeroState = {
     heroes: [],
     error: '',
+    tags: [],
     status: 'idle',
 }
 
@@ -62,5 +63,68 @@ export const heroReducer = createReducer(
             ...state,
             error,
         })
-    })
+    }),
+    on(getTagsSuccess, (state, { tags }) => {
+        return ({
+            ...state,
+            tags,
+            status: 'success' as 'success'
+        })
+    }),
+    on(getTagsFailure, (state, { error }) => {
+        return ({
+            ...state,
+            error,
+        })
+    }),
+    on(addTagSuccess, (state, { tag }) => {
+        console.log([...state.tags,tag]);
+        
+        return ({
+            ...state,
+            tags : [...state.tags,tag],
+            status: 'success' as 'success'
+        })
+    }),
+    on(addTagFailure, (state, { error }) => {
+        return ({
+            ...state,
+            error,
+        })
+    }),
+    on(editTagSuccess, (state, { tag }) => {
+        const tagIndex = state.tags.findIndex((t) => t._id === tag._id)
+        console.log(tagIndex);
+        
+        const newTags = [
+            ...state.tags
+        ]
+        newTags[tagIndex] = tag
+        return ({
+            ...state,
+            tags : newTags,
+            status: 'success' as 'success'
+        })
+    }),
+    on(editTagFailure, (state, { error }) => {
+        return ({
+            ...state,
+            error,
+        })
+    }),
+    on(deleteTagSuccess, (state, { tag }) => {
+        const newTags = state.tags.filter((t) => t._id !== tag._id)
+
+        return ({
+            ...state,
+            tags : newTags,
+            status: 'success' as 'success'
+        })
+    }),
+    on(deleteTagFailure, (state, { error }) => {
+        return ({
+            ...state,
+            error,
+        })
+    }),
 )

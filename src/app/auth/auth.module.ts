@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ShareModule } from '../shared/share.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AuthRoutingModule } from './auth-routing.module';
 
 
 
@@ -14,7 +15,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     UserProfileComponent
   ],
   imports: [
-    ShareModule
+    ShareModule,
+    AuthRoutingModule
   ],
   exports: [
     LoginComponent,
