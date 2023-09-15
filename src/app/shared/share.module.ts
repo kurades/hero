@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, TitleCasePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShortenPipe } from './pipe/shorten.pipe';
 import { CopyDirective } from './directive/copy.directive';
+import { ColorizeDirective } from './directive/colorize.directive';
 
 @NgModule({
   declarations: [
     ShortenPipe,
-    CopyDirective
+    CopyDirective,
+    ColorizeDirective
   ],
   imports: [
     CommonModule,
@@ -16,14 +18,14 @@ import { CopyDirective } from './directive/copy.directive';
     ReactiveFormsModule,
     NgbModule,
   ],
-  providers: [TitleCasePipe, CopyDirective],
   exports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
     ShortenPipe,
-    CopyDirective
+    CopyDirective,
+    ColorizeDirective
   ]
 })
 export class ShareModule { }

@@ -1,9 +1,9 @@
-import { NgModule, inject } from '@angular/core'
-import { Routes, RouterModule } from '@angular/router'
-import { AuthGuardService } from '../core/services/auth-guard.service'
-import { LoginComponent } from './login/login.component'
-import { RegisterComponent } from './register/register.component'
-import { UserProfileComponent } from './user-profile/user-profile.component'
+import { NgModule, inject } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from '../core/services/auth-guard.service';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -19,7 +19,7 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent
   }
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

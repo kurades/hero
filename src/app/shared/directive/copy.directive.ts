@@ -1,13 +1,13 @@
-import { Directive, ElementRef, Input, NgZone, OnInit } from '@angular/core'
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
-import { fromEvent, switchMap } from 'rxjs'
-import { MessageService } from 'src/app/core/services/message.service'
+import { Directive, ElementRef, Input, NgZone, OnInit } from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { fromEvent, switchMap } from 'rxjs';
+import { MessageService } from 'src/app/core/services/message.service';
 @UntilDestroy()
 @Directive({
   selector: '[appCopy]'
 })
 export class CopyDirective implements OnInit {
-  @Input() copy: string
+  @Input() copy: string;
 
   constructor (
     private host: ElementRef<HTMLElement>,
@@ -22,7 +22,7 @@ export class CopyDirective implements OnInit {
           switchMap(() => navigator.clipboard.writeText(this.copy)),
           untilDestroyed(this)
         )
-        .subscribe(() => this.messageService.add('add to clipboard'))
-    })
+        .subscribe(() => this.messageService.add('add to clipboard'));
+    });
   }
 }

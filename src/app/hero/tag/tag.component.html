@@ -1,8 +1,7 @@
 <div class="me-2 position-relative">
-    <h5 class="d-flex align-items-center badge rounded-1 text-light py-1 px-2" appCopy [copy]="tag.name"
-        [style.backgroundColor]="stringToColour(tag.name)">
-        <span *ngIf="shorten ; else elseblock" ngbTooltip="copy" class="py-1 cursor-pointer">{{tag.name |
-            shorten}}</span>
+    <h5 class="d-flex align-items-center badge rounded-1 text-light py-1 px-2" appCopy [copy]="tag.name" appColorize
+        [colorValue]="tag.name">
+        <span *ngIf="shorten ; else elseblock" ngbTooltip="copy" class="py-1 cursor-pointer">{{tag.name | shorten}}</span>
         <ng-template #elseblock>
             <span class="py-1">{{tag.name}}</span>
         </ng-template>
