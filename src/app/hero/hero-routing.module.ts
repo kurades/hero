@@ -7,7 +7,6 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 
 
 const routes: Routes = [
-
     {
         path: 'dashboard',
         component: DashboardComponent,
@@ -24,7 +23,6 @@ const routes: Routes = [
         canActivate: [() => inject(AuthGuardService).canActivate()]
     },
 ];
-
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]

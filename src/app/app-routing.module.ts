@@ -1,24 +1,17 @@
-import { NgModule, inject } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HeroesComponent } from './hero/heroes/heroes.component';
-import { DashboardComponent } from './hero/dashboard/dashboard.component';
-import { HeroDetailComponent } from './hero/hero-detail/hero-detail.component';
-import { HeroCreateComponent } from './hero/hero-create/hero-create.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { AuthGuardService } from './core/services/auth-guard.service';
-import { UserProfileComponent } from './auth/user-profile/user-profile.component';
-import { TagManagerComponent } from './tag-manager/tag-manager.component';
+import { NgModule, inject } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+import { AuthGuardService } from './core/services/auth-guard.service'
+import { TagManagerComponent } from './tag-manager/tag-manager.component'
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'heroes/dashboard',
-    pathMatch: 'full',
+    pathMatch: 'full'
   },
   {
     path: 'heroes',
-    loadChildren: () => import('./hero/hero.module').then((m) => m.HeroModule),
+    loadChildren: () => import('./hero/hero.module').then(m => m.HeroModule)
   },
   {
     path: 'tag',
@@ -27,12 +20,12 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-  },
-];
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  }
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

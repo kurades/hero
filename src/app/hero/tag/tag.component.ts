@@ -1,23 +1,19 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Tag } from 'src/app/core/models/tag';
-
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Tag } from 'src/app/core/models/tag'
 @Component({
   selector: 'app-tag',
   templateUrl: './tag.component.html',
-  styleUrls: ['./tag.component.css'],
+  styleUrls: ['./tag.component.css']
 })
-export class TagComponent implements OnInit {
-  @Input() disable = true;
-  @Input() tag: Tag;
-  @Input() shorten = true;
+export class TagComponent {
+  @Input() disable = true
+  @Input() shorten = true
+  @Input() tag: Tag
   @Output() removeTag = new EventEmitter<Tag>()
-  ngOnInit(): void {
 
-  }
-
-  stringToColour(str: string): string | null {
+  stringToColour (str: string): string | null {
     if (str) {
-      let hash = 0;
+      let hash = 0
       str.split('').forEach(char => {
         hash = char.charCodeAt(0) + ((hash << 5) - hash)
       })
@@ -30,7 +26,7 @@ export class TagComponent implements OnInit {
     }
     return null
   }
-  remove(): void {
+  remove (): void {
     this.removeTag.next(this.tag)
   }
 }

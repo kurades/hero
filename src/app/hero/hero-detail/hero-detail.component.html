@@ -35,7 +35,6 @@
             <div class="d-flex w-75 flex-wrap mb-2">
                 <app-tag *ngFor="let tag of tags.controls" [tag]="tag.value" (removeTag)="removeTag($event)" [disable]="false" ></app-tag>
             </div>
-            <!-- [formControl]="inputTag" -->
             <input type="text" class="mb-2 form-control" 
             #instance ="ngbTypeahead"
             #inputtag
@@ -44,7 +43,6 @@
             [ngbTypeahead]="search"
             [inputFormatter]="formatter"
             [resultFormatter]="formatter"
-            (selectItem)="selectedItem($event)"
             >
             <button type="button" (click)="addTag(inputtag)" class="btn btn-secondary">Add tag</button>
         </div>
