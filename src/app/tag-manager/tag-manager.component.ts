@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit
 } from '@angular/core';
 import { Tag } from '../core/models/tag';
@@ -14,7 +15,7 @@ import {
   getTags
 } from '../core/store/Hero/hero.actions';
 import { selectTags } from '../core/store/Hero/hero.selector';
-import { Observable, map } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 
 @Component({
   selector: 'app-tag-manager',
@@ -22,11 +23,12 @@ import { Observable, map } from 'rxjs';
   styleUrls: ['./tag-manager.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TagManagerComponent implements OnInit {
+export class TagManagerComponent implements OnInit, OnDestroy {
   isEdit = -1;
   tags: Tag[];
   tags$: Observable<Tag[]>;
   chosenTag: Tag;
+  tagsSubscription: Subscription;
   constructor (private store: Store<AppState>, private cdr: ChangeDetectorRef) {}
 
   ngOnInit (): void {
@@ -36,7 +38,7 @@ export class TagManagerComponent implements OnInit {
 
   getTags (): void {
     this.store.dispatch(getTags());
-    this.store.select(selectTags).subscribe(tags => {
+    this.tagsSubscription = this.store.select(selectTags).subscribe(tags => {
       this.tags = tags;
       this.cdr.markForCheck();
     });
@@ -67,5 +69,9 @@ export class TagManagerComponent implements OnInit {
 
   identify (index: number, item: Tag) {
     return item._id;
+  }
+
+  ngOnDestroy(): void {
+      this.tagsSubscription.unsubscribe()
   }
 }

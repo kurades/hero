@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Hero } from '../../core/models/hero';
 import { ActivatedRoute } from '@angular/router';
 import { HeroService } from '../../core/services/hero.service';
@@ -20,18 +20,21 @@ import { editHero, getTags } from '../../core/store/Hero/hero.actions';
 import { Tag } from 'src/app/core/models/tag';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { AppState } from 'src/app/core/store/app.state';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-hero-detail',
   templateUrl: './hero-detail.component.html',
   styleUrls: ['./hero-detail.component.css']
 })
-export class HeroDetailComponent implements OnInit {
+export class HeroDetailComponent implements OnInit, OnDestroy {
   hero: Hero;
   heroForm: FormGroup;
   tagError: string;
   tagList: Tag[];
   inputTagFocus$ = new Subject<string>();
   inputTagClick$ = new Subject<string>();
+  subscription: Subscription;
+  tagSubscription: Subscription;
   @ViewChild('instance', { static: true }) instance: NgbTypeahead;
   constructor (
     private route: ActivatedRoute,
@@ -43,11 +46,10 @@ export class HeroDetailComponent implements OnInit {
   ngOnInit (): void {
     this.getTags();
     this.getHero();
-    this.initForm();
   }
   getTags (): void {
     this.store.dispatch(getTags());
-    this.store.select(selectTags).subscribe(tags => {
+    this.tagSubscription = this.store.select(selectTags).subscribe(tags => {
       this.tagList = tags;
     });
   }
@@ -85,16 +87,10 @@ export class HeroDetailComponent implements OnInit {
 
   getHero (): void {
     const id = String(this.route.snapshot.paramMap.get('id'));
-    this.heroService.getHero(id).subscribe(
-      pipe(
-        h => {
-          this.hero = h;
-        },
-        () => {
-          this.initForm();
-        }
-      )
-    );
+    this.subscription = this.heroService.getHero(id).subscribe(hero => {
+      this.hero = hero;
+      this.initForm();
+    });
   }
 
   save (): void {
@@ -161,5 +157,12 @@ export class HeroDetailComponent implements OnInit {
 
   reset (): void {
     this.initForm();
+  }
+
+  ngOnDestroy (): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subscription.unsubscribe();
+    this.tagSubscription.unsubscribe();
   }
 }
