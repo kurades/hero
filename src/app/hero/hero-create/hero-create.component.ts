@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Hero } from '../../core/models/hero';
 import { Store } from '@ngrx/store';
@@ -17,17 +17,19 @@ import {
 } from 'rxjs';
 import { Tag } from 'src/app/core/models/tag';
 import { AppState } from 'src/app/core/store/app.state';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-hero-create',
   templateUrl: './hero-create.component.html',
   styleUrls: ['./hero-create.component.css']
 })
-export class HeroCreateComponent implements OnInit {
+export class HeroCreateComponent implements OnInit, OnDestroy {
   heroFormGroup: FormGroup;
   tagError: string;
   tagList: Tag[];
   inputTagFocus$ = new Subject<string>();
   inputTagClick$ = new Subject<string>();
+  subscription: Subscription;
   @ViewChild('instance', { static: true }) instance: NgbTypeahead;
   private MIN_AGE: number = 1;
 
@@ -60,7 +62,7 @@ export class HeroCreateComponent implements OnInit {
 
   getTags (): void {
     this.store.dispatch(getTags());
-    this.store.select(selectTags).subscribe(tags => {
+    this.subscription = this.store.select(selectTags).subscribe(tags => {
       this.tagList = tags;
     });
   }
@@ -139,5 +141,11 @@ export class HeroCreateComponent implements OnInit {
     console.log(this.heroFormGroup.value);
     const newHero = this.heroFormGroup.value as Hero;
     this.store.dispatch(addHero({ hero: newHero }));
+  }
+
+  ngOnDestroy (): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subscription.unsubscribe();
   }
 }
