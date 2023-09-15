@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Hero } from '../../core/models/hero';
 import {
   Observable,
@@ -21,18 +21,20 @@ import { selectHeros, selectTags } from '../../core/store/Hero/hero.selector';
 import { AppState } from 'src/app/core/store/app.state';
 import { Tag } from 'src/app/core/models/tag';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.css']
 })
-export class HeroesComponent implements OnInit {
+export class HeroesComponent implements OnInit, OnDestroy {
   tagsTerm: Tag[] = [];
   heros$ = this.store.select(selectHeros);
   inputTagFocus$ = new Subject<string>();
   inputTagClick$ = new Subject<string>();
-  tagList: Tag[];
+  subscription: Subscription;
+  tags: Tag[];
   @ViewChild('instance', { static: true }) instance: NgbTypeahead;
   tagError: string;
   constructor (private store: Store<AppState>) {}
@@ -47,8 +49,8 @@ export class HeroesComponent implements OnInit {
   }
   getTags (): void {
     this.store.dispatch(getTags());
-    this.store.select(selectTags).subscribe(tags => {
-      this.tagList = tags;
+    this.subscription = this.store.select(selectTags).subscribe(tags => {
+      this.tags = tags;
     });
   }
   delete (hero: Hero): void {
@@ -56,7 +58,7 @@ export class HeroesComponent implements OnInit {
   }
 
   addTag (event: HTMLInputElement) {
-    const value = this.tagList.find((tag: Tag) => tag.name === event.value);
+    const value = this.tags.find((tag: Tag) => tag.name === event.value);
     if (value) {
       const valid = this.checkTagValid(value.name);
       const exist = this.tagsTerm.find((tag: Tag) => tag.name === event.value);
@@ -92,13 +94,13 @@ export class HeroesComponent implements OnInit {
 
     return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
       map(term =>
-        (term === '' ? this.tagList : this.filteredTag(term)).slice(0, 10)
+        (term === '' ? this.tags : this.filteredTags(term)).slice(0, 10)
       )
     );
   };
 
-  filteredTag (term: string): Tag[] {
-    return this.tagList.filter(tag =>
+  filteredTags (term: string): Tag[] {
+    return this.tags.filter(tag =>
       tag.name.toLowerCase().includes(term.toLowerCase())
     );
   }
@@ -112,5 +114,9 @@ export class HeroesComponent implements OnInit {
   search (event: Event): void {
     const el = event.target as HTMLInputElement;
     this.store.dispatch(findHero({ term: el.value, tags: this.tagsTerm }));
+  }
+
+  ngOnDestroy (): void {
+    this.subscription.unsubscribe();
   }
 }

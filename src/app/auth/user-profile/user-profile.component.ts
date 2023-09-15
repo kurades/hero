@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserState, selectUser } from '../../core/store/User/user.selector';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../core/models/user';
 import { updateProfile } from '../../core/store/User/user.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
   user: User;
   userForm: FormGroup;
-
+  userSubscription: Subscription;
   constructor (
     private store: Store<{ user: UserState }>,
     private fb: FormBuilder
@@ -25,7 +26,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   fetchUser (): void {
-    this.store.select(selectUser).subscribe(u => {
+    this.userSubscription = this.store.select(selectUser).subscribe(u => {
       this.user = u as User;
     });
   }
@@ -60,5 +61,9 @@ export class UserProfileComponent implements OnInit {
   }
   get phone () {
     return this.userForm.get('phone');
+  }
+
+  ngOnDestroy (): void {
+    this.userSubscription.unsubscribe();
   }
 }
