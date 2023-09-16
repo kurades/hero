@@ -1,0 +1,56 @@
+<div *ngIf="hero" class="px-3 pt-4 d-flex flex-column align-items-center">
+    <h2>{{hero.name | uppercase}} Details</h2>
+    <div>Hero id: {{hero._id}}</div>
+
+    <form [formGroup]="heroForm" (ngSubmit)="save()" class="form-group w-50">
+
+        <label for="name" class="form-label">Hero name:</label>
+        <input type="text" id="name" formControlName="name" class="form-control" required>
+        <div *ngIf="name?.errors && name?.touched" class="text-danger">
+            Please type in a name.
+        </div>
+        <label for="gender" class="form-label">Gender:</label>
+        <select name="gender" class="form-select" id="gender" formControlName="gender">
+            <option selected value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Others">Others</option>
+        </select>
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" formControlName="email" class="form-control" name="email" id="email">
+        <div *ngIf="email?.errors && !email?.pristine" class="text-danger">
+            Please type in a valid email.
+        </div>
+        <label for="age" class="form-label">Age</label>
+        <input type="number" formControlName="age" class="form-control" name="age" id="age">
+        <div *ngIf="age?.errors && age?.touched" class="text-danger">
+            Age must greater than 0
+        </div>
+        <label for="address" class="form-label">Address</label>
+        <input type="text" formControlName="address" class="form-control" name="address" id="address">
+        <div *ngIf="address?.errors && address?.touched" class="text-danger">
+            Please type in a address.
+        </div>
+        <div formArrayName="tags">
+            <label class="form-label">Tags</label>
+            <div class="d-flex w-75 flex-wrap mb-2">
+                <app-tag *ngFor="let tag of tags.controls" [tag]="tag.value" (removeTag)="removeTag($event)" [disable]="false" ></app-tag>
+            </div>
+            <input type="text" class="mb-2 form-control" 
+            #instance ="ngbTypeahead"
+            #inputtag
+            (focus)="inputTagFocus$.next($any($event).target.value)"
+            (click)="inputTagClick$.next($any($event).target.value)"
+            [ngbTypeahead]="search"
+            [inputFormatter]="formatter"
+            [resultFormatter]="formatter"
+            >
+            <button type="button" (click)="addTag(inputtag)" class="btn btn-secondary">Add tag</button>
+        </div>
+        <div class="w-75 d-flex justify-content-between mx-auto">
+            <Button type="submit" class="w-25 btn btn-primary mt-5" [disabled]="!heroForm.valid">Save</Button>
+            <button type="button" class="w-25 btn btn-secondary mt-5" (click)="reset()">Reset</button>
+        </div>
+    </form>
+
+
+</div>

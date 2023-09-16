@@ -1,0 +1,22 @@
+<div class="ms-5">
+    <h2 class="mb-5">Tag manager</h2>
+    <div class="d-flex flex-column">
+        <div class="mb-4 w-25">
+            <input type="text" class="form-control" #inputtag (keydown.enter)="addTag(inputtag)"
+                placeholder="Add tag here">
+        </div>
+        <div *ngFor="let tag of tags;let i = index; trackBy: identify" class="d-flex flex-column">
+            <div>
+                <p class="custom-badge mb-2 p-2 text-light rounded-1 fw-bold d-inline-block" 
+                    appColorize [colorValue]="tag._id">
+                    <span (click)="toggleEdit(i)" *ngIf="!(isEdit===i); else elseblock">{{tag.name}}</span>
+                    <ng-template #elseblock>
+                        <input type="text" class="styleless-input text-white" #edittag [value]="chosenTag.name"
+                            (keydown.enter)="editTag(edittag)">
+                    </ng-template>
+                    <span class="ms-3 cursor-pointer" (click)="deleteTag(tag._id)">x</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
