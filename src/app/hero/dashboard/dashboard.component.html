@@ -1,0 +1,9 @@
+<div class="pt-5">
+  <h2>Top Heroes</h2>
+  <div class="heroes-menu w-100 d-flex justify-content-evenly" >
+    <a role="button" routerLink="/detail/{{hero._id}}" class="btn btn-primary btn-lg" *ngFor="let hero of heroes">
+      {{hero.name}}
+    </a>
+  </div>
+  <app-heroes></app-heroes>
+</div>
