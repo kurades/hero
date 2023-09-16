@@ -1,0 +1,40 @@
+<div class="d-flex flex-column h-100">
+    <nav class="navbar navbar-light bg-secondary p-2">
+        <h1 class="navbar-brand text-white">{{title}}</h1>
+        <ul *ngIf="user$ | async; else elseblock" class="navbar-nav ml-auto d-flex flex-row">
+            <li class="nav-item">
+                <a routerLink="/heroes/dashboard" class="nav-link text-white">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/tag" class="nav-item nav-link text-white">Tag</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/heroes/create" class="nav-item nav-link text-white">Create</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/auth/profile" class="nav-item nav-link text-white">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a (click)="logout()" class="nav-item nav-link text-white cursor-pointer">Log out</a>
+            </li>
+        </ul>
+        <ng-template #elseblock>
+            <ul class="navbar-nav ml-auto d-flex flex-row">
+                <li class="nav-item">
+                    <a routerLink="/auth/login" class="nav-item nav-link text-white">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/auth/register" class="nav-item nav-link text-white">Register</a>
+                </li>
+            </ul>
+        </ng-template>
+    </nav>
+    <div class="flex-grow-1 d-flex position-relative bg-light w-100 h-100">
+        <div class="flex-grow-1 ms-2 mt-5">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="me-2">
+            <app-messages></app-messages>
+        </div>
+    </div>
+</div>

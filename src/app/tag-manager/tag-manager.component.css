@@ -1,0 +1,10 @@
+.styleless-input{
+    background-color: transparent;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: white;
+}
+.custom-badge{
+    background-color: #e7e7e7;
+}

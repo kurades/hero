@@ -1,0 +1,40 @@
+<h2 class="mt-5">My Heroes</h2>
+<div class="w-75 mx-auto">
+  <div class="d-flex w-75 flex-wrap mb-2 ">
+    <app-tag *ngFor="let tag of tagsTerm" (removeTag)="removeTagTerm(tag)" [tag]="tag" [disable]="false"></app-tag>
+  </div>
+  <div class="d-flex mb-2">
+    <input type="text" class="form-control me-2" placeholder="Type name in here" (keydown.enter)="search($event)" />
+
+    <input type="text" class=" form-control" placeholder="Search by tag" #instance="ngbTypeahead" #inputtag
+      (focus)="inputTagFocus$.next($any($event).target.value)" (click)="inputTagClick$.next($any($event).target.value)"
+      [ngbTypeahead]="searchTagTerm" [inputFormatter]="formatter" [resultFormatter]="formatter"
+      (keydown.enter)="addTag(inputtag)">
+
+  </div>
+  <table class="table table-striped w-100">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Tags</th>
+        <th>Age</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let hero of heros$ | async">
+        <td [width]="100"><a routerLink="/heroes/detail/{{hero._id}}">{{hero._id}}</a></td>
+        <td [width]="200">{{hero.name | titlecase}}</td>
+        <td [width]="400">
+          <div class="d-flex me-1 flex-wrap flex-grow-1">
+            <app-tag *ngFor="let tag of hero.tags" [tag]="tag" [disable]="true"></app-tag>
+          </div>
+        </td>
+        <td>{{hero.age}}</td>
+        <td [width]="50"> <button type="button" class="btn btn-danger" title="delete hero"
+            (click)="delete(hero)">x</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
